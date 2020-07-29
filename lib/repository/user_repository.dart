@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../helpers/helper.dart';
 import '../models/address.dart';
 // import '../models/credit_card.dart';
@@ -14,17 +15,18 @@ import '../repository/user_repository.dart' as userRepo;
 ValueNotifier<User> currentUser = new ValueNotifier(User());
 
 Future<User> login(User user) async {
-  final String url = '${GlobalConfiguration().getString('api_base_url')}login';
-  final client = new http.Client();
-  final response = await client.post(
-    url,
-    headers: {HttpHeaders.contentTypeHeader: 'application/json'},
-    body: json.encode(user.toMap()),
-  );
-  if (response.statusCode == 200) {
-    setCurrentUser(response.body);
-    currentUser.value = User.fromJSON(json.decode(response.body)['data']);
-  }
+  // final String url = '${GlobalConfiguration().getString('api_base_url')}login';
+  // final client = new http.Client();
+  // final response = await client.post(
+  //   url,
+  //   headers: {HttpHeaders.contentTypeHeader: 'application/json'},
+  //   body: json.encode(user.toMap()),
+  // );
+  // if (response.statusCode == 200) {
+  //   setCurrentUser(response.body);
+  //   currentUser.value = User.fromJSON(json.decode(response.body)['data']);
+  // }
+
   return currentUser.value;
 }
 
@@ -93,6 +95,13 @@ Future<User> getCurrentUser() async {
     currentUser.value.auth = false;
   }
   currentUser.notifyListeners();
+  await Firestore.instance
+      .collection('user')
+      .document('DOMLVUdqP7bo0DdTFTEuVOATO092')
+      .get()
+      .then((DocumentSnapshot ds) {
+    print(ds.data);
+  }).catchError((err) => print(err));
   return currentUser.value;
 }
 

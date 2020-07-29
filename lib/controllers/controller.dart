@@ -23,10 +23,10 @@ class Controller extends ControllerMVC {
     //     settingRepo.deliveryAddress.value = address;
     //   });
     // });
-    // userRepo.getCurrentUser().then((user) {
-    //   setState(() {
-    //     userRepo.currentUser.value = user;
-    //   });
-    // });
+    userRepo.getCurrentUser().then((user) {
+      setState(() {
+        userRepo.currentUser.value = user;
+      });
+    });
   }
 }

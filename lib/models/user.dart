@@ -21,11 +21,11 @@ class User {
 
   User.fromJSON(Map<String, dynamic> jsonMap) {
     try {
-      id = jsonMap['id'].toString();
-      name = jsonMap['name'];
+      id = jsonMap['uid'].toString();
+      name = jsonMap['displayName'];
       email = jsonMap['email'];
-      apiToken = jsonMap['api_token'];
-      deviceToken = jsonMap['device_token'];
+      apiToken = jsonMap['uid'];
+      deviceToken = jsonMap['uid'];
       try {
         phone = jsonMap['custom_fields']['phone']['view'];
       } catch (e) {
