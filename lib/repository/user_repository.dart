@@ -94,7 +94,6 @@ Future<User> getCurrentUser() async {
   } else {
     currentUser.value.auth = false;
   }
-  currentUser.notifyListeners();
   await Firestore.instance
       .collection('user')
       .document('DOMLVUdqP7bo0DdTFTEuVOATO092')
@@ -102,6 +101,8 @@ Future<User> getCurrentUser() async {
       .then((DocumentSnapshot ds) {
     print(ds.data);
   }).catchError((err) => print(err));
+  currentUser.notifyListeners();
+
   return currentUser.value;
 }
 

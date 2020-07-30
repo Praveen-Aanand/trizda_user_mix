@@ -19,25 +19,43 @@ ValueNotifier<Setting> setting = new ValueNotifier(new Setting());
 
 Future<Setting> initSettings() async {
   Setting _setting;
-  final String url =
-      '${GlobalConfiguration().getString('api_base_url')}settings';
-  final response = await http
-      .get(url, headers: {HttpHeaders.contentTypeHeader: 'application/json'});
-  if (response.statusCode == 200 &&
-      response.headers.containsValue('application/json')) {
-    if (json.decode(response.body)['data'] != null) {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setString(
-          'settings', json.encode(json.decode(response.body)['data']));
-      _setting = Setting.fromJSON(json.decode(response.body)['data']);
-      if (prefs.containsKey('language')) {
-        _setting.mobileLanguage =
-            new ValueNotifier(Locale(prefs.get('language'), ''));
-      }
-      setting.value = _setting;
-      setting.notifyListeners();
+  var data = '''{"success":true,
+      "data":{
+        "app_name":"Smart Delivery",
+        "enable_stripe":"1",
+        "default_tax":"10",
+        "default_currency":"i",
+        "enable_paypal":"1",
+        "main_color":"#ed9e02",
+        "main_dark_color":"#ed9e02",
+        "second_color":"#3b1a04",
+        "second_dark_color":"#ddd3cc",
+        "accent_color":"#a8998c",
+        "accent_dark_color":"#9999aa",
+        "scaffold_dark_color":"#2c2c2c",
+        "scaffold_color":"#fafafa",
+        "google_maps_key":"AIzaSyC3YYz8jqvHY3Yup1lzIdlU51FsjHKH5yE",
+        "mobile_language":"en",
+        "app_version":"1.5.0",
+        "enable_version":"1",
+        "currency_right":"0",
+        "default_currency_decimal_digits":"2",
+        "enable_razorpay":"1"
+        },
+        "message":"Settings retrieved successfully"
+        }''';
+  if (json.decode(data)['data'] != null) {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('settings', json.encode(json.decode(data)['data']));
+    _setting = Setting.fromJSON(json.decode(data)['data']);
+    if (prefs.containsKey('language')) {
+      _setting.mobileLanguage =
+          new ValueNotifier(Locale(prefs.get('language'), ''));
     }
+    setting.value = _setting;
+    setting.notifyListeners();
   }
+
   return setting.value;
 }
 
@@ -88,10 +106,12 @@ Future<Setting> initSettings() async {
 //   }
 // }
 
-// void setBrightness(Brightness brightness) async {
-//   SharedPreferences prefs = await SharedPreferences.getInstance();
-//   brightness == Brightness.dark ? prefs.setBool("isDark", true) : prefs.setBool("isDark", false);
-// }
+void setBrightness(Brightness brightness) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  brightness == Brightness.dark
+      ? prefs.setBool("isDark", true)
+      : prefs.setBool("isDark", false);
+}
 
 // Future<void> setDefaultLanguage(String language) async {
 //   if (language != null) {

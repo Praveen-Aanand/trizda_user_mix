@@ -20,22 +20,22 @@ class SplashScreenState extends StateMVC<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    loadData();
+    // loadData();
   }
 
-  void loadData() {
-    _con.progress.addListener(() {
-      double progress = 0;
-      _con.progress.value.values.forEach((_progress) {
-        progress += _progress;
-      });
-      if (progress == 100) {
-        try {
-          Navigator.of(context).pushReplacementNamed('/Pages', arguments: 2);
-        } catch (e) {}
-      }
-    });
-  }
+  // void loadData() {
+  //   _con.progress.addListener(() {
+  //     double progress = 0;
+  //     _con.progress.value.values.forEach((_progress) {
+  //       progress += _progress;
+  //     });
+  //     if (progress >= 100) {
+  //       try {
+  //         Navigator.of(context).pushReplacementNamed('/Pages', arguments: 2);
+  //       } catch (e) {}
+  //     }
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -61,6 +61,13 @@ class SplashScreenState extends StateMVC<SplashScreen> {
                 valueColor:
                     AlwaysStoppedAnimation<Color>(Theme.of(context).hintColor),
               ),
+              RaisedButton(
+                onPressed: () {
+                  Navigator.of(context)
+                      .pushReplacementNamed('/Pages', arguments: 0);
+                },
+                child: Text("hii click me"),
+              )
             ],
           ),
         ),

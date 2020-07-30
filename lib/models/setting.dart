@@ -39,8 +39,7 @@ class Setting {
       appVersion = jsonMap['app_version'] ?? '';
       distanceUnit = jsonMap['distance_unit'] ?? 'km';
       enableVersion = jsonMap['enable_version'] == null ? false : true;
-      defaultTax = double.tryParse(jsonMap['default_tax']) ??
-          0.0; //double.parse(jsonMap['default_tax'].toString());
+      defaultTax = double.tryParse(jsonMap['default_tax']) ?? 0.0; //double.parse(jsonMap['default_tax'].toString());
       defaultCurrency = jsonMap['default_currency'] ?? '';
       currencyRight = jsonMap['currency_right'] == null ? false : true;
       payPalEnabled = jsonMap['enable_paypal'] == null ? false : true;

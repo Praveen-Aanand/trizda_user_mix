@@ -14,7 +14,7 @@ import 'models/route_argument.dart';
 // import 'pages/login.dart';
 // import 'pages/menu_list.dart';
 // import 'pages/order_success.dart';
-// import 'pages/pages.dart';
+import 'pages/pages.dart';
 // import 'pages/payment_methods.dart';
 // import 'pages/paypal_payment.dart';
 // import 'pages/product.dart';
@@ -50,8 +50,8 @@ class RouteGenerator {
       //   return MaterialPageRoute(builder: (_) => ProfileWidget());
       // case '/ForgetPassword':
       //   return MaterialPageRoute(builder: (_) => ForgetPasswordWidget());
-      // case '/Pages':
-      //   return MaterialPageRoute(builder: (_) => PagesWidget(currentTab: args));
+      case '/Pages':
+        return MaterialPageRoute(builder: (_) => PagesWidget(currentTab: args));
       // case '/Details':
       //   return MaterialPageRoute(
       //       builder: (_) =>
