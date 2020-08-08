@@ -77,25 +77,7 @@ class RemotTemp extends AnimatedWidget {
   RemotTemp({this.remoteConfig}) : super(listenable: remoteConfig);
 
   final RemoteConfig remoteConfig;
-  final textJson = '''
-{
-  "type": "Container",
-  "color": "#FF00FF",
-  "alignment": "center",
-  "child": {
-    "type": "Text",
-    "data": "Flutter dynamic widget",
-    "maxLines": 3,
-    "overflow": "ellipsis",
-    "style": {
-      "color": "#00FFFF",
-      "fontSize": 20.0,
-      "fontWeight": "bold",
-      "decoration": "underline"
-    }
-  } 
-}
-''';
+
 // var temp=remoteConfig.
   @override
   Widget build(BuildContext context) {
@@ -244,7 +226,7 @@ Future<RemoteConfig> setupRemoteConfig() async {
 //     );
 //   }
 
-//   Future<Widget> _buildWidget(BuildContext context) async { 
+//   Future<Widget> _buildWidget(BuildContext context) async {
 //     return DynamicWidgetBuilder.build(
 //         jsonString, context, new DefaultClickListener());
 //   }

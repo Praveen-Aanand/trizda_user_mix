@@ -10,12 +10,12 @@ import 'package:global_configuration/global_configuration.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart';
-import 'package:markets/src/elements/CircularLoadingWidget.dart';
+// import '../elements/CircularLoadingWidget.dart';
 
-import '../../generated/i18n.dart';
-import '../models/cart.dart';
-import '../models/market.dart';
-import '../models/product_order.dart';
+import '../generated/i18n.dart';
+// import '../models/cart.dart';
+// import '../models/market.dart';
+// import '../models/product_order.dart';
 import '../repository/settings_repository.dart';
 
 class Helper {
@@ -38,13 +38,17 @@ class Helper {
 
   static Future<Uint8List> getBytesFromAsset(String path, int width) async {
     ByteData data = await rootBundle.load(path);
-    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(), targetWidth: width);
+    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),
+        targetWidth: width);
     ui.FrameInfo fi = await codec.getNextFrame();
-    return (await fi.image.toByteData(format: ui.ImageByteFormat.png)).buffer.asUint8List();
+    return (await fi.image.toByteData(format: ui.ImageByteFormat.png))
+        .buffer
+        .asUint8List();
   }
 
   static Future<Marker> getMarker(Map<String, dynamic> res) async {
-    final Uint8List markerIcon = await getBytesFromAsset('assets/img/marker.png', 120);
+    final Uint8List markerIcon =
+        await getBytesFromAsset('assets/img/marker.png', 120);
     final Marker marker = Marker(
         markerId: MarkerId(res['id']),
         icon: BitmapDescriptor.fromBytes(markerIcon),
@@ -58,13 +62,16 @@ class Helper {
             onTap: () {
               print('infowi tap');
             }),
-        position: LatLng(double.parse(res['latitude']), double.parse(res['longitude'])));
+        position: LatLng(
+            double.parse(res['latitude']), double.parse(res['longitude'])));
 
     return marker;
   }
 
-  static Future<Marker> getMyPositionMarker(double latitude, double longitude) async {
-    final Uint8List markerIcon = await getBytesFromAsset('assets/img/my_marker.png', 120);
+  static Future<Marker> getMyPositionMarker(
+      double latitude, double longitude) async {
+    final Uint8List markerIcon =
+        await getBytesFromAsset('assets/img/my_marker.png', 120);
     final Marker marker = Marker(
         markerId: MarkerId(Random().nextInt(100).toString()),
         icon: BitmapDescriptor.fromBytes(markerIcon),
@@ -82,7 +89,8 @@ class Helper {
     if (rate - rate.floor() > 0) {
       list.add(Icon(Icons.star_half, size: size, color: Color(0xFFFFB24D)));
     }
-    list.addAll(List.generate(5 - rate.floor() - (rate - rate.floor()).ceil(), (index) {
+    list.addAll(
+        List.generate(5 - rate.floor() - (rate - rate.floor()).ceil(), (index) {
       return Icon(Icons.star_border, size: size, color: Color(0xFFFFB24D));
     }));
     return list;
@@ -106,7 +114,8 @@ class Helper {
 //    }
 //  }
 
-  static Widget getPrice(double myPrice, BuildContext context, {TextStyle style}) {
+  static Widget getPrice(double myPrice, BuildContext context,
+      {TextStyle style}) {
     if (style != null) {
       style = style.merge(TextStyle(fontSize: style.fontSize + 2));
     }
@@ -115,12 +124,15 @@ class Helper {
         softWrap: false,
         overflow: TextOverflow.fade,
         maxLines: 1,
-        text: setting.value?.currencyRight != null && setting.value?.currencyRight == false
+        text: setting.value?.currencyRight != null &&
+                setting.value?.currencyRight == false
             ? TextSpan(
                 text: setting.value?.defaultCurrency,
                 style: style ?? Theme.of(context).textTheme.subhead,
                 children: <TextSpan>[
-                  TextSpan(text: myPrice.toStringAsFixed(2) ?? '', style: style ?? Theme.of(context).textTheme.subhead),
+                  TextSpan(
+                      text: myPrice.toStringAsFixed(2) ?? '',
+                      style: style ?? Theme.of(context).textTheme.subhead),
                 ],
               )
             : TextSpan(
@@ -130,7 +142,11 @@ class Helper {
                   TextSpan(
                       text: setting.value?.defaultCurrency,
                       style: TextStyle(
-                          fontWeight: FontWeight.w400, fontSize: style != null ? style.fontSize - 4 : Theme.of(context).textTheme.subhead.fontSize - 4)),
+                          fontWeight: FontWeight.w400,
+                          fontSize: style != null
+                              ? style.fontSize - 4
+                              : Theme.of(context).textTheme.subhead.fontSize -
+                                  4)),
                 ],
               ),
       );
@@ -139,32 +155,36 @@ class Helper {
     }
   }
 
-  static double getTotalOrderPrice(ProductOrder productOrder, double tax, double deliveryFee) {
-    double total = productOrder.price * productOrder.quantity;
-    productOrder.options.forEach((option) {
-      total += option.price != null ? option.price : 0;
-    });
-    total += deliveryFee;
-    total += tax * total / 100;
-    return total;
-  }
+  // static double getTotalOrderPrice(
+  //     ProductOrder productOrder, double tax, double deliveryFee) {
+  //   double total = productOrder.price * productOrder.quantity;
+  //   productOrder.options.forEach((option) {
+  //     total += option.price != null ? option.price : 0;
+  //   });
+  //   total += deliveryFee;
+  //   total += tax * total / 100;
+  //   return total;
+  // }
 
   static String getDistance(double distance) {
     String unit = setting.value.distanceUnit;
     if (unit == 'km') {
       distance *= 1.60934;
     }
-    return distance != null ? distance.toStringAsFixed(2) + " " + trans(unit) : "";
+    return distance != null
+        ? distance.toStringAsFixed(2) + " " + trans(unit)
+        : "";
   }
 
-  static bool canDelivery(Market _market, {List<Cart> carts}) {
-    bool _can = true;
-    carts?.forEach((Cart _cart) {
-      _can &= _cart.product.deliverable;
-    });
-    _can &= _market.availableForDelivery && (_market.distance <= _market.deliveryRange);
-    return _can;
-  }
+  // static bool canDelivery(Market _market, {List<Cart> carts}) {
+  //   bool _can = true;
+  //   carts?.forEach((Cart _cart) {
+  //     _can &= _cart.product.deliverable;
+  //   });
+  //   _can &= _market.availableForDelivery &&
+  //       (_market.distance <= _market.deliveryRange);
+  //   return _can;
+  // }
 
   static String skipHtml(String htmlString) {
     var document = parse(htmlString);
@@ -176,7 +196,8 @@ class Helper {
     return Html(
       blockSpacing: 0,
       data: html,
-      defaultTextStyle: style ?? Theme.of(context).textTheme.body2.merge(TextStyle(fontSize: 14)),
+      defaultTextStyle: style ??
+          Theme.of(context).textTheme.body2.merge(TextStyle(fontSize: 14)),
       useRichText: false,
       customRender: (node, children) {
         if (node is dom.Element) {
@@ -214,15 +235,17 @@ class Helper {
         left: 0,
         child: Material(
           color: Theme.of(context).primaryColor.withOpacity(0.85),
-          child: CircularLoadingWidget(height: 200),
+          child: Text("helllo"),
         ),
       );
     });
     return loader;
   }
 
-  static String limitString(String text, {int limit = 24, String hiddenText = "..."}) {
-    return text.substring(0, min<int>(limit, text.length)) + (text.length > limit ? hiddenText : '');
+  static String limitString(String text,
+      {int limit = 24, String hiddenText = "..."}) {
+    return text.substring(0, min<int>(limit, text.length)) +
+        (text.length > limit ? hiddenText : '');
   }
 
   static String getCreditCardNumber(String number) {

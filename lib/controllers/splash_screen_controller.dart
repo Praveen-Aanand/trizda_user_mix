@@ -1,6 +1,6 @@
 import 'dart:async';
 
-// import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
@@ -33,33 +33,32 @@ class SplashScreenController extends ControllerMVC {
     //   },
     //   onBackgroundMessage: myBackgroundMessageHandler,
     // );
-    // settingRepo.setting.addListener(() {
-    //   if (settingRepo.setting.value.appName != null &&
-    //       settingRepo.setting.value.appName != '' &&
-    //       settingRepo.setting.value.mainColor != null) {
-    //     progress.value["Setting"] = 41;
-    //     progress.value["DeliveryAddress"] = 29;
-    //     progress.notifyListeners();
-    //   }
-    // });
-    // settingRepo.deliveryAddress.addListener(() {
-    //   if (settingRepo.deliveryAddress.value.address != null) {
-    //     progress.value["DeliveryAddress"] = 29;
-    //     progress?.notifyListeners();
-    //   }
-    // });
-    // currentUser.addListener(() {
-    //   if (currentUser.value.auth != null) {
-    //     progress.value["User"] = 30;
-    //     progress.notifyListeners();
-    //   }
-    // });
-    progress.value["Setting"] = 41;
-    progress.notifyListeners();
-    progress.value["DeliveryAddress"] = 29;
-    progress.notifyListeners();
-    progress.value["User"] = 30;
-    progress.notifyListeners();
+    settingRepo.setting.addListener(() {
+      if (settingRepo.setting.value.appName != null &&
+          settingRepo.setting.value.appName != '' &&
+          settingRepo.setting.value.mainColor != null) {
+        progress.value["Setting"] = 41;
+        progress.notifyListeners();
+      }
+    });
+    settingRepo.deliveryAddress.addListener(() {
+      if (settingRepo.deliveryAddress.value.address != null) {
+        progress.value["DeliveryAddress"] = 29;
+        progress?.notifyListeners();
+      }
+    });
+    currentUser.addListener(() {
+      if (currentUser.value.auth != null) {
+        progress.value["User"] = 30;
+        progress.notifyListeners();
+      }
+    });
+    // progress.value["Setting"] = 41;
+    // progress.notifyListeners();
+    // progress.value["DeliveryAddress"] = 29;
+    // progress.notifyListeners();
+    // progress.value["User"] = 30;
+    // progress.notifyListeners();
     Timer(Duration(seconds: 20), () {
       scaffoldKey?.currentState?.showSnackBar(SnackBar(
         content: Text(S.current.verify_your_internet_connection),

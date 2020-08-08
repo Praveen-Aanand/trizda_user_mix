@@ -18,11 +18,11 @@ class Controller extends ControllerMVC {
         settingRepo.setting.value = setting;
       });
     });
-    // settingRepo.getCurrentLocation().then((address) {
-    //   setState(() {
-    //     settingRepo.deliveryAddress.value = address;
-    //   });
-    // });
+    settingRepo.getCurrentLocation().then((address) {
+      setState(() {
+        settingRepo.deliveryAddress.value = address;
+      });
+    });
     userRepo.getCurrentUser().then((user) {
       setState(() {
         userRepo.currentUser.value = user;

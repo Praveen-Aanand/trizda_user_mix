@@ -1,5 +1,5 @@
 import 'package:location/location.dart';
-import 'package:markets/generated/i18n.dart';
+import '../generated/i18n.dart';
 
 class Address {
   String id;
@@ -15,8 +15,11 @@ class Address {
   Address.fromJSON(Map<String, dynamic> jsonMap) {
     try {
       id = jsonMap['id'].toString();
-      description = jsonMap['description'] != null ? jsonMap['description'].toString() : null;
-      address = jsonMap['address'] != null ? jsonMap['address'] : S.current.unknown;
+      description = jsonMap['description'] != null
+          ? jsonMap['description'].toString()
+          : null;
+      address =
+          jsonMap['address'] != null ? jsonMap['address'] : S.current.unknown;
       latitude = jsonMap['latitude'] != null ? jsonMap['latitude'] : null;
       longitude = jsonMap['longitude'] != null ? jsonMap['longitude'] : null;
       isDefault = jsonMap['is_default'] ?? false;

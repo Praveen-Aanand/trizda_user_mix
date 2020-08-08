@@ -15,17 +15,17 @@ import '../repository/user_repository.dart' as userRepo;
 ValueNotifier<User> currentUser = new ValueNotifier(User());
 
 Future<User> login(User user) async {
-  // final String url = '${GlobalConfiguration().getString('api_base_url')}login';
-  // final client = new http.Client();
-  // final response = await client.post(
-  //   url,
-  //   headers: {HttpHeaders.contentTypeHeader: 'application/json'},
-  //   body: json.encode(user.toMap()),
-  // );
-  // if (response.statusCode == 200) {
-  //   setCurrentUser(response.body);
-  //   currentUser.value = User.fromJSON(json.decode(response.body)['data']);
-  // }
+  final String url = '${GlobalConfiguration().getString('api_base_url')}login';
+  final client = new http.Client();
+  final response = await client.post(
+    url,
+    headers: {HttpHeaders.contentTypeHeader: 'application/json'},
+    body: json.encode(user.toMap()),
+  );
+  if (response.statusCode == 200) {
+    setCurrentUser(response.body);
+    currentUser.value = User.fromJSON(json.decode(response.body)['data']);
+  }
 
   return currentUser.value;
 }
@@ -131,64 +131,64 @@ Future<User> update(User user) async {
   return currentUser.value;
 }
 
-// Future<Stream<Address>> getAddresses() async {
-//   User _user = currentUser.value;
-//   final String _apiToken = 'api_token=${_user.apiToken}&';
-//   final String url =
-//       '${GlobalConfiguration().getString('api_base_url')}delivery_addresses?$_apiToken&search=user_id:${_user.id}&searchFields=user_id:=&orderBy=updated_at&sortedBy=desc';
-//   print(url);
-//   final client = new http.Client();
-//   final streamedRest = await client.send(http.Request('get', Uri.parse(url)));
+Future<Stream<Address>> getAddresses() async {
+  User _user = currentUser.value;
+  final String _apiToken = 'api_token=${_user.apiToken}&';
+  final String url =
+      '${GlobalConfiguration().getString('api_base_url')}delivery_addresses?$_apiToken&search=user_id:${_user.id}&searchFields=user_id:=&orderBy=updated_at&sortedBy=desc';
+  print(url);
+  final client = new http.Client();
+  final streamedRest = await client.send(http.Request('get', Uri.parse(url)));
 
-//   return streamedRest.stream
-//       .transform(utf8.decoder)
-//       .transform(json.decoder)
-//       .map((data) => Helper.getData(data))
-//       .expand((data) => (data as List))
-//       .map((data) {
-//     return Address.fromJSON(data);
-//   });
-// }
+  return streamedRest.stream
+      .transform(utf8.decoder)
+      .transform(json.decoder)
+      .map((data) => Helper.getData(data))
+      .expand((data) => (data as List))
+      .map((data) {
+    return Address.fromJSON(data);
+  });
+}
 
-// Future<Address> addAddress(Address address) async {
-//   User _user = userRepo.currentUser.value;
-//   final String _apiToken = 'api_token=${_user.apiToken}';
-//   address.userId = _user.id;
-//   final String url =
-//       '${GlobalConfiguration().getString('api_base_url')}delivery_addresses?$_apiToken';
-//   final client = new http.Client();
-//   final response = await client.post(
-//     url,
-//     headers: {HttpHeaders.contentTypeHeader: 'application/json'},
-//     body: json.encode(address.toMap()),
-//   );
-//   return Address.fromJSON(json.decode(response.body)['data']);
-// }
+Future<Address> addAddress(Address address) async {
+  User _user = userRepo.currentUser.value;
+  final String _apiToken = 'api_token=${_user.apiToken}';
+  address.userId = _user.id;
+  final String url =
+      '${GlobalConfiguration().getString('api_base_url')}delivery_addresses?$_apiToken';
+  final client = new http.Client();
+  final response = await client.post(
+    url,
+    headers: {HttpHeaders.contentTypeHeader: 'application/json'},
+    body: json.encode(address.toMap()),
+  );
+  return Address.fromJSON(json.decode(response.body)['data']);
+}
 
-// Future<Address> updateAddress(Address address) async {
-//   User _user = userRepo.currentUser.value;
-//   final String _apiToken = 'api_token=${_user.apiToken}';
-//   address.userId = _user.id;
-//   final String url =
-//       '${GlobalConfiguration().getString('api_base_url')}delivery_addresses/${address.id}?$_apiToken';
-//   final client = new http.Client();
-//   final response = await client.put(
-//     url,
-//     headers: {HttpHeaders.contentTypeHeader: 'application/json'},
-//     body: json.encode(address.toMap()),
-//   );
-//   return Address.fromJSON(json.decode(response.body)['data']);
-// }
+Future<Address> updateAddress(Address address) async {
+  User _user = userRepo.currentUser.value;
+  final String _apiToken = 'api_token=${_user.apiToken}';
+  address.userId = _user.id;
+  final String url =
+      '${GlobalConfiguration().getString('api_base_url')}delivery_addresses/${address.id}?$_apiToken';
+  final client = new http.Client();
+  final response = await client.put(
+    url,
+    headers: {HttpHeaders.contentTypeHeader: 'application/json'},
+    body: json.encode(address.toMap()),
+  );
+  return Address.fromJSON(json.decode(response.body)['data']);
+}
 
-// Future<Address> removeDeliveryAddress(Address address) async {
-//   User _user = userRepo.currentUser.value;
-//   final String _apiToken = 'api_token=${_user.apiToken}';
-//   final String url =
-//       '${GlobalConfiguration().getString('api_base_url')}delivery_addresses/${address.id}?$_apiToken';
-//   final client = new http.Client();
-//   final response = await client.delete(
-//     url,
-//     headers: {HttpHeaders.contentTypeHeader: 'application/json'},
-//   );
-//   return Address.fromJSON(json.decode(response.body)['data']);
-// }
+Future<Address> removeDeliveryAddress(Address address) async {
+  User _user = userRepo.currentUser.value;
+  final String _apiToken = 'api_token=${_user.apiToken}';
+  final String url =
+      '${GlobalConfiguration().getString('api_base_url')}delivery_addresses/${address.id}?$_apiToken';
+  final client = new http.Client();
+  final response = await client.delete(
+    url,
+    headers: {HttpHeaders.contentTypeHeader: 'application/json'},
+  );
+  return Address.fromJSON(json.decode(response.body)['data']);
+}

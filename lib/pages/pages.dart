@@ -6,16 +6,16 @@ import '../models/route_argument.dart';
 import './home1.dart';
 // import '../pages/favorites.dart';
 // import '../pages/home.dart';
-// import '../pages/map.dart';
+import './map1.dart';
+import "./favorites1.dart";
 // import '../pages/notifications.dart';
 // import '../pages/orders.dart';
 
 class PagesWidget extends StatefulWidget {
   dynamic currentTab;
   RouteArgument routeArgument;
-  // // Widget currentPage = HomeWidget();   replaced
+  Widget currentPage = Home();
   // Widget currentPage = Text("data");
-
   final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
 
   PagesWidget({
@@ -42,8 +42,8 @@ class _PagesWidgetState extends State<PagesWidget> {
   @override
   void initState() {
     pageList.add(Home());
-    pageList.add(Text("second page"));
-
+    pageList.add(MapWidget());
+    pageList.add(FavList());
     super.initState();
   }
 

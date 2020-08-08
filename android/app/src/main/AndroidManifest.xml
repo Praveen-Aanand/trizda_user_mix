@@ -9,6 +9,11 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="trizda_user"
         android:icon="@mipmap/ic_launcher">
+        <meta-data android:name="com.google.android.geo.API_KEY"
+                   android:value="AIzaSyAOqyF4QS8ZLhMczOQVoNDePsIlJ8KR4NU"/>
+        <!-- <meta-data
+                android:name="com.google.firebase.messaging.default_notification_icon"
+                android:resource="@mipmap/ic_notification" /> -->
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
