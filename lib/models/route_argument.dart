@@ -10,3 +10,10 @@ class RouteArgument {
     return '{id: $id, heroTag:${heroTag.toString()}}';
   }
 }
+
+class Data {
+  String text;
+  int counter;
+  String dateTime;
+  Data({this.text, this.counter, this.dateTime});
+}

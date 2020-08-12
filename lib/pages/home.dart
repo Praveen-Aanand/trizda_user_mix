@@ -1,9 +1,12 @@
 import 'dart:async';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'dart:convert';
+import '../models/route_argument.dart';
+import "productview.dart";
 
 final imgList = [
   {
@@ -87,6 +90,7 @@ class RemotTemp extends AnimatedWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
+            TopBar(),
             // CatoList(cato),
             // SlideShow(imgList),
             if (remoteConfig.getString('welcome') == 'default welcome')
@@ -151,12 +155,11 @@ class CatoList extends StatelessWidget {
           children: [
             for (var item in imgList)
               Padding(
-                padding: const EdgeInsets.all(6.0),
-                child: Image.network(
-                  item["img"],
-                  height: 50,
-                ),
-              ),
+                  padding: const EdgeInsets.all(6.0),
+                  child: CachedNetworkImage(
+                    imageUrl: item["img"],
+                    height: 50,
+                  )),
           ],
         ),
       ),
@@ -167,6 +170,7 @@ class CatoList extends StatelessWidget {
 class SlideShow extends StatelessWidget {
   final imgList;
   SlideShow(this.imgList);
+  // final data = Data(text: "njr");
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -181,12 +185,26 @@ class SlideShow extends StatelessWidget {
       ),
       items: imgList
           .map<Widget>((item) => Container(
-                child: Center(
-                    child: Image.network(
-                  item["img"],
-                  fit: BoxFit.fitHeight,
-                  height: 120,
-                )),
+                child: GestureDetector(
+                  onTap: () => {
+                    // Navigator.of(context).pushNamed('/Product',
+                    //     arguments: new RouteArgument(id: '1'))
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ProductFetch(
+                            data: Data(text: "ajxb"),
+                          ),
+                        ))
+                  },
+                  child: Center(
+                    child: CachedNetworkImage(
+                      imageUrl: item["img"],
+                      height: 130,
+                      fit: BoxFit.fitHeight,
+                    ),
+                  ),
+                ),
               ))
           .toList(),
     ));
@@ -238,6 +256,26 @@ Future<RemoteConfig> setupRemoteConfig() async {
 //     print("Receive click event: " + event);
 //   }
 // }
+
+class TopBar extends StatefulWidget {
+  @override
+  _TopBarState createState() => _TopBarState();
+}
+
+class _TopBarState extends State<TopBar> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Row(
+        children: [
+          Image.asset("./assets/img/logo.png", height: 45),
+          Spacer(),
+          Text("I")
+        ],
+      ),
+    );
+  }
+}
 
 TValue case2<TOptionType, TValue>(
   TOptionType selectedOption,

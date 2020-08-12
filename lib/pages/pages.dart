@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-
 // import '../elements/DrawerWidget.dart';
 // import '../elements/FilterWidget.dart';
 import '../models/route_argument.dart';
-import './home1.dart';
+import './home.dart';
 // import '../pages/favorites.dart';
 // import '../pages/home.dart';
-import './map1.dart';
-import "./favorites1.dart";
+import 'map.dart';
+import 'favorites.dart';
 // import '../pages/notifications.dart';
 // import '../pages/orders.dart';
 
@@ -16,6 +15,7 @@ class PagesWidget extends StatefulWidget {
   RouteArgument routeArgument;
   Widget currentPage = Home();
   // Widget currentPage = Text("data");
+
   final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
 
   PagesWidget({
@@ -42,7 +42,7 @@ class _PagesWidgetState extends State<PagesWidget> {
   @override
   void initState() {
     pageList.add(Home());
-    pageList.add(MapWidget());
+    // pageList.add(MapWidget());
     pageList.add(FavList());
     super.initState();
   }
@@ -81,55 +81,57 @@ class _PagesWidgetState extends State<PagesWidget> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async => false,
-      child: Scaffold(
-        key: widget.scaffoldKey,
-        // drawer: DrawerWidget(),
-        // endDrawer: FilterWidget(onFilter: (filter) {
-        //   Navigator.of(context).pushReplacementNamed('/Pages', arguments: widget.currentTab);
-        // }),
-        body: IndexedStack(
-          index: widget.currentTab,
-          children: pageList,
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          selectedItemColor: Theme.of(context).accentColor,
-          selectedFontSize: 0,
-          unselectedFontSize: 0,
-          iconSize: 22,
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-          selectedIconTheme: IconThemeData(size: 28),
-          unselectedItemColor: Theme.of(context).focusColor.withOpacity(1),
-          // currentIndex: widget.currentTab,
-          // onTap: (int i) {
-          //   this._selectTab(i);
-          // },
-          // this will be set when a new tab is tapped
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              title: Text('Home'),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.store),
-              title: Text('Store'),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.search),
-              title: Text('Search'),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart),
-              title: Text('Orders'),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle),
-              title: Text('Account'),
-            ),
-          ],
-          currentIndex: widget.currentTab,
-          onTap: _onItemTapped,
+      child: SafeArea(
+        child: Scaffold(
+          key: widget.scaffoldKey,
+          // drawer: DrawerWidget(),
+          // endDrawer: FilterWidget(onFilter: (filter) {
+          //   Navigator.of(context).pushReplacementNamed('/Pages', arguments: widget.currentTab);
+          // }),
+          body: IndexedStack(
+            index: widget.currentTab,
+            children: pageList,
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            selectedItemColor: Theme.of(context).accentColor,
+            selectedFontSize: 0,
+            unselectedFontSize: 0,
+            iconSize: 22,
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            selectedIconTheme: IconThemeData(size: 22),
+            unselectedItemColor: Theme.of(context).focusColor.withOpacity(1),
+            // currentIndex: widget.currentTab,
+            // onTap: (int i) {
+            //   this._selectTab(i);
+            // },
+            // this will be set when a new tab is tapped
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                title: Text('Home'),
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.store),
+                title: Text('Store'),
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.search),
+                title: Text('Search'),
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.shopping_cart),
+                title: Text('Orders'),
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.account_circle),
+                title: Text('Account'),
+              ),
+            ],
+            currentIndex: widget.currentTab,
+            onTap: _onItemTapped,
+          ),
         ),
       ),
     );

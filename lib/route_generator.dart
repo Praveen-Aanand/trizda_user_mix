@@ -15,6 +15,7 @@ import 'models/route_argument.dart';
 // import 'pages/menu_list.dart';
 // import 'pages/order_success.dart';
 import 'pages/pages.dart';
+import 'pages/productview.dart';
 // import 'pages/payment_methods.dart';
 // import 'pages/paypal_payment.dart';
 // import 'pages/product.dart';
@@ -38,6 +39,9 @@ class RouteGenerator {
       //   return MaterialPageRoute(builder: (_) => Walkthrough());
       case '/Splash':
         return MaterialPageRoute(builder: (_) => SplashScreen());
+      case '/Product':
+        return MaterialPageRoute(
+            builder: (_) => ProductFetch(data: Data(text: "ajxb")));
       // case '/SignUp':
       //   return MaterialPageRoute(builder: (_) => SignUpWidget());
       // case '/MobileVerification':
