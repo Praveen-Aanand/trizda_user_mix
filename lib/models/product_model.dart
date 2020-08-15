@@ -31,6 +31,20 @@ class ProductEntry {
     };
   }
 
+  toJson(doc) {
+    return {
+      "data": {
+        cato: doc.data['cato'],
+        title: doc.data['title'],
+        image: doc.data['image'],
+        price: doc.data['price'],
+        s_price: doc.data["s_price"],
+        s_dis: doc.data["s_dis"],
+        // documentId: doc.documentID,
+      }
+    };
+  }
+
   static ProductEntry fromDoc(DocumentSnapshot doc) {
     if (doc == null) return null;
 

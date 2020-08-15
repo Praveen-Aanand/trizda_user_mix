@@ -193,7 +193,7 @@ class SlideShow extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) => ProductFetch(
-                            data: Data(text: "ajxb"),
+                            data: Data(text: "3h3N5JprkMNv0W2MTK4t"),
                           ),
                         ))
                   },

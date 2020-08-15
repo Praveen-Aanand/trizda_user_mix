@@ -41,7 +41,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => SplashScreen());
       case '/Product':
         return MaterialPageRoute(
-            builder: (_) => ProductFetch(data: Data(text: "ajxb")));
+            builder: (_) =>
+                ProductFetch(data: Data(text: "3h3N5JprkMNv0W2MTK4t")));
       // case '/SignUp':
       //   return MaterialPageRoute(builder: (_) => SignUpWidget());
       // case '/MobileVerification':
