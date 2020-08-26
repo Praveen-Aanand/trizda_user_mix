@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:trizda_user/helpers/auth.dart';
+import 'package:trizda_user/pages/loginpage.dart';
+
 import 'dart:convert';
 import '../models/route_argument.dart';
 import "productview.dart";
@@ -80,7 +84,10 @@ class RemotTemp extends AnimatedWidget {
   RemotTemp({this.remoteConfig}) : super(listenable: remoteConfig);
 
   final RemoteConfig remoteConfig;
-
+  final name = FirebaseAuth.instance
+      .currentUser()
+      .then((value) => value.phoneNumber)
+      .toString();
 // var temp=remoteConfig.
   @override
   Widget build(BuildContext context) {
@@ -136,6 +143,47 @@ class RemotTemp extends AnimatedWidget {
                 }
               },
             ),
+            FutureBuilder(
+                future: FirebaseAuth.instance.currentUser(),
+                builder: (BuildContext context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Text("${snapshot.data.phoneNumber}");
+                  } else {
+                    return FlatButton(
+                      onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => LoginPage(),
+                          )),
+                      child: Text("login"),
+                    );
+                  }
+                }),
+
+            Text("$name"),
+            StreamBuilder(
+              stream: FirebaseAuth.instance.onAuthStateChanged,
+              builder: (BuildContext context, snapshot) {
+                if (snapshot.hasData) {
+                  return FlatButton(
+                    onPressed: () async {
+                      await AuthService().signOut();
+                    },
+                    child: Text("Logout from ${snapshot.data.phoneNumber}"),
+                  );
+                } else {
+                  return FlatButton(
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LoginPage(),
+                      ),
+                    ),
+                    child: Text("login"),
+                  );
+                }
+              },
+            ),
           ],
         ),
       ),
@@ -155,11 +203,12 @@ class CatoList extends StatelessWidget {
           children: [
             for (var item in imgList)
               Padding(
-                  padding: const EdgeInsets.all(6.0),
-                  child: CachedNetworkImage(
-                    imageUrl: item["img"],
-                    height: 50,
-                  )),
+                padding: const EdgeInsets.all(6.0),
+                child: CachedNetworkImage(
+                  imageUrl: item["img"],
+                  height: 50,
+                ),
+              ),
           ],
         ),
       ),

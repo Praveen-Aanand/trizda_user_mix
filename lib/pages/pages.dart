@@ -5,6 +5,7 @@ import '../models/route_argument.dart';
 import './home.dart';
 // import '../pages/favorites.dart';
 // import '../pages/home.dart';
+import 'loginpage.dart';
 import 'map.dart';
 import 'favorites.dart';
 // import '../pages/notifications.dart';
@@ -42,7 +43,7 @@ class _PagesWidgetState extends State<PagesWidget> {
   @override
   void initState() {
     pageList.add(Home());
-    // pageList.add(MapWidget());
+    pageList.add(LoginPage());
     pageList.add(FavList());
     super.initState();
   }

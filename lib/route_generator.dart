@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'models/route_argument.dart';
 // import 'pages/cart.dart';
 // import 'pages/category.dart';
@@ -23,6 +22,7 @@ import 'pages/productview.dart';
 // import 'pages/reviews.dart';
 // import 'pages/settings.dart';
 // import 'pages/signup.dart';
+import 'pages/loginpage.dart';
 import 'pages/splash_screen.dart';
 // import 'pages/tracking.dart';
 // import 'pages/walkthrough.dart';
@@ -57,6 +57,8 @@ class RouteGenerator {
       //   return MaterialPageRoute(builder: (_) => ForgetPasswordWidget());
       case '/Pages':
         return MaterialPageRoute(builder: (_) => PagesWidget(currentTab: args));
+      case '/Login':
+        return MaterialPageRoute(builder: (_) => LoginPage());
       // case '/Details':
       //   return MaterialPageRoute(
       //       builder: (_) =>

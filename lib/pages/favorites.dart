@@ -31,7 +31,6 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     final diaryEntries = Provider.of<List<ProductEntry>>(context);
     return SizedBox(
-      width: MediaQuery.of(context).size.width * 3 / 5,
       child: ListView(
         children: <Widget>[
           SizedBox(height: 40),
