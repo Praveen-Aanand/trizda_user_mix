@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trizda_user/elements/Comment.dart';
 // import '../elements/DrawerWidget.dart';
 // import '../elements/FilterWidget.dart';
 import '../models/route_argument.dart';
@@ -44,7 +45,7 @@ class _PagesWidgetState extends State<PagesWidget> {
   void initState() {
     pageList.add(Home());
     pageList.add(LoginPage());
-    pageList.add(FavList());
+    pageList.add(Comment());
     super.initState();
   }
 

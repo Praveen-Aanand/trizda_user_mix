@@ -7,7 +7,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:trizda_user/helpers/auth.dart';
 import 'package:trizda_user/pages/loginpage.dart';
-
 import 'dart:convert';
 import '../models/route_argument.dart';
 import "productview.dart";
@@ -345,8 +344,8 @@ final List<Widget> imageSliders = imgList
             margin: EdgeInsets.all(5.0),
             child: ClipRRect(
                 borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                child: Image.network(
-                  item["img"],
+                child: CachedNetworkImage(
+                  imageUrl: item["img"],
                   fit: BoxFit.fitHeight,
                 )),
           ),

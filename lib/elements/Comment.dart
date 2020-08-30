@@ -1,15 +1,24 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:trizda_user/models/comments_model.dart';
-import '../models/product_model.dart';
 import 'package:provider/provider.dart';
 
-class FavList extends StatelessWidget {
+class Comment extends StatefulWidget {
+  final String id;
+  final String type;
+  Comment({this.id, this.type});
+
+  @override
+  _CommentState createState() => _CommentState();
+}
+
+class _CommentState extends State<Comment> {
   @override
   Widget build(BuildContext context) {
     final diaryEntries = Firestore.instance
-        .collection('Rating')
-        .where("id" == "3h3N5JprkMNv0W2MTK4t")
+        .collection("${widget.type}")
+        .document("${widget.id}")
+        .collection("Rating")
         .snapshots()
         .map((snapshot) {
       return snapshot.documents
@@ -34,15 +43,14 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     final diaryEntries = Provider.of<List<CommentsEntry>>(context);
-    return SizedBox(
-      child: ListView(
-        children: <Widget>[
-          SizedBox(height: 40),
-          if (diaryEntries != null)
-            for (var diaryData in diaryEntries) Text(diaryData.name),
-          if (diaryEntries == null) Center(child: CircularProgressIndicator()),
-        ],
-      ),
+    print(diaryEntries);
+    return Column(
+      children: <Widget>[
+        SizedBox(height: 40),
+        if (diaryEntries != null)
+          for (var diaryData in diaryEntries) Text(diaryData.name),
+        if (diaryEntries == null) Center(child: CircularProgressIndicator()),
+      ],
     );
   }
 }
