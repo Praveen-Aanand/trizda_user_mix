@@ -8,15 +8,16 @@ class CommentsEntry {
   final String name;
   final String uid;
   final String documentId;
-  final double ring;
+  final int ring;
+  final String imgUrl;
 
-  CommentsEntry({
-    this.body,
-    this.name,
-    this.uid,
-    this.documentId,
-    this.ring,
-  });
+  CommentsEntry(
+      {this.body,
+      this.name,
+      this.uid,
+      this.documentId,
+      this.ring,
+      this.imgUrl});
 
   // toJson(doc) {
   //   return {
@@ -38,7 +39,8 @@ class CommentsEntry {
       'body': body,
       'name': name,
       'uid': uid,
-      "ring": ring
+      "ring": ring,
+      "imgUrl": imgUrl,
     };
   }
 
@@ -50,7 +52,8 @@ class CommentsEntry {
         name: doc.data['n'],
         documentId: doc.documentID,
         uid: doc.data['uid'],
-        ring: doc.data["ring"]);
+        imgUrl: doc.data["iu"],
+        ring: doc.data["r"]);
   }
 
   @override

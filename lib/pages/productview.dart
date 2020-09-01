@@ -1,6 +1,8 @@
 import 'dart:convert';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:html/parser.dart';
+// import 'dart:html';
+// import 'package:firebase_storage/firebase_storage.dart';
+// import 'package:html/parser.dart';
+// import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -75,6 +77,7 @@ class ProductView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productEntries = diaryEntries;
+    final commentFlag = false;
     print(productEntries);
     final List<Widget> imageSliders = productEntries["images"]
         .map<Widget>((item) => Container(
@@ -208,8 +211,10 @@ class ProductView extends StatelessWidget {
                                 productEntries["images"][0].toString(),
                                 width: 300,
                               ),
-                              Comment(
-                                  id: productEntries["id"], type: "products"),
+                              Headline(title: "Reviews :"),
+                              Comment(id: productEntries["id"], type: "p"),
+                              Headline(title: "Your Review:"),
+                              YourReview(id: productEntries["id"], type: "p"),
                             ],
                           ),
                         ),
