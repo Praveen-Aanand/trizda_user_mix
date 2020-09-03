@@ -7,6 +7,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:trizda_user/helpers/auth.dart';
 import 'package:trizda_user/pages/loginpage.dart';
+import 'package:trizda_user/pages/shopeview.dart';
 import 'dart:convert';
 import '../models/route_argument.dart';
 import "productview.dart";
@@ -113,19 +114,32 @@ class RemotTemp extends AnimatedWidget {
                       },
                       Text("onnum ella")),
                 ),
-            Container(
-                child: CarouselSlider(
-              options: CarouselOptions(
-                aspectRatio: 3.0,
-                enlargeCenterPage: true,
-                enableInfiniteScroll: false,
-                initialPage: 0,
-                autoPlay: false,
-                disableCenter: true,
-                viewportFraction: 1.0,
-              ),
-              items: imageSliders,
-            )),
+            GestureDetector(
+              onTap: () => {
+                // Navigator.of(context).pushNamed('/Product',
+                //     arguments: new RouteArgument(id: '1'))
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ShopFetch(
+                        data: Data(text: "qB9qWygitUdH4poLWFkw"),
+                      ),
+                    ))
+              },
+              child: Container(
+                  child: CarouselSlider(
+                options: CarouselOptions(
+                  aspectRatio: 3.0,
+                  enlargeCenterPage: true,
+                  enableInfiniteScroll: false,
+                  initialPage: 0,
+                  autoPlay: false,
+                  disableCenter: true,
+                  viewportFraction: 1.0,
+                ),
+                items: imageSliders,
+              )),
+            ),
             IconButton(
               icon: const Icon(Icons.refresh),
               onPressed: () async {

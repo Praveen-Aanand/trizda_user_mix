@@ -8,6 +8,7 @@ import './home.dart';
 // import '../pages/home.dart';
 import 'loginpage.dart';
 import 'map.dart';
+import 'map.dart';
 import 'favorites.dart';
 // import '../pages/notifications.dart';
 // import '../pages/orders.dart';
@@ -44,6 +45,7 @@ class _PagesWidgetState extends State<PagesWidget> {
   @override
   void initState() {
     pageList.add(Home());
+    pageList.add(MapWidget());
     pageList.add(LoginPage());
     pageList.add(Comment());
     super.initState();

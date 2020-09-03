@@ -1,3 +1,6 @@
+import 'dart:collection';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
@@ -19,10 +22,41 @@ class _MapWidgetState extends StateMVC<MapWidget> {
   GoogleMapController mapController;
 
   final LatLng _center = const LatLng(45.521563, -122.677433);
+  Set<Marker> _markers = HashSet<Marker>();
 
-  void _onMapCreated(GoogleMapController controller) {
-    mapController = controller;
+  GoogleMapController _mapController;
+  BitmapDescriptor _markerIcon;
+  // void initState() {
+  //   super.initState();
+  //   _setMarkerIcon();
+  // }
+
+  // void _setMarkerIcon() async {
+  //   _markerIcon = await BitmapDescriptor.fromAssetImage(
+  //       ImageConfiguration(), 'assets/icons/icon (1).png');
+  // }
+
+  void _onMapCreated(GoogleMapController controller) async {
+    _mapController = controller;
+    var config = createLocalImageConfiguration(context, size: Size(30, 20));
+    _markerIcon = await BitmapDescriptor.fromAssetImage(
+        config, 'assets/icons/icon(1).png');
+
+    setState(() {
+      _markers.add(
+        Marker(
+          markerId: MarkerId("0"),
+          position: LatLng(10.826666, 78.696265),
+          infoWindow: InfoWindow(
+            title: "Trichy Sarathas",
+            snippet: "Fasion Store",
+          ),
+          icon: _markerIcon,
+        ),
+      );
+    });
   }
+
   // @override
   // void initState() {
   //   _con.currentMarket = widget.routeArgument?.param as Market;
@@ -43,6 +77,7 @@ class _MapWidgetState extends StateMVC<MapWidget> {
         zoomGesturesEnabled: true,
         mapToolbarEnabled: false,
         mapType: MapType.normal,
+        markers: _markers,
         zoomControlsEnabled: true,
         onMapCreated: _onMapCreated,
         initialCameraPosition: CameraPosition(

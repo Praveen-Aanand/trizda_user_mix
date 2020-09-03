@@ -113,7 +113,7 @@ class YourReview extends StatefulWidget {
   @override
   final String id;
   final String type;
-  YourReview(this.id, this.type);
+  YourReview({this.id, this.type});
 
   _YourReviewState createState() => _YourReviewState(id, type);
 }

@@ -66,7 +66,7 @@ class Chumma extends StatelessWidget {
   Chumma(this.data);
   @override
   Widget build(BuildContext context) {
-    return Container(child: Text(data[0]["image"]));
+    return Container(child: Text(data[0]["images"]));
   }
 }
 
