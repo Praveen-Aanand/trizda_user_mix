@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trizda_user/elements/Comment.dart';
+import 'package:trizda_user/elements/drawer.dart';
 // import '../elements/DrawerWidget.dart';
 // import '../elements/FilterWidget.dart';
 import '../models/route_argument.dart';
@@ -95,6 +96,9 @@ class _PagesWidgetState extends State<PagesWidget> {
           body: IndexedStack(
             index: widget.currentTab,
             children: pageList,
+          ),
+          drawer: Drawer(
+            child: Drawerfile(),
           ),
           bottomNavigationBar: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
